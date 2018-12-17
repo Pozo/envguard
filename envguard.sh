@@ -2,7 +2,7 @@
 
 set -Eeo pipefail
 
-readarray -d '' -t variables < <(grep -v '^#' environment.variables 2>/dev/null)
+readarray -t variables < <(grep -v '^#' environment.variables 2>/dev/null)
 
 for value in ${variables[@]};
 do
