@@ -2,15 +2,28 @@
 
 set -Eeo pipefail
 
+optionSeparator="|"
+isSecretOption="s"
+
 readarray -t variables < <(grep -v '^#' environment.variables 2>/dev/null)
 
 for value in ${variables[@]};
 do
-    if test -z "${!value}"
+    environmentVariableName=${value%"${optionSeparator}${isSecretOption}"}
+    optionsForEnvironmentVariable=${value#"$environmentVariableName${optionSeparator}"}
+
+    if test -z "${!environmentVariableName}"
     then
-          echo "${value} is empty. Terminating."
+          echo "${environmentVariableName} is empty. Terminating."
           exit 1
     else
-          echo "${value} value is : ${!value}"
+        if [[ ${optionsForEnvironmentVariable} == *"${isSecretOption}"* ]]; then
+            secretLength=$(printf "%s" "${!environmentVariableName}" | wc -c)
+            secretMask=$(printf '%*s' ${secretLength} | tr ' ' '*')
+
+            echo "${environmentVariableName} value is : ${secretMask}"
+        else
+            echo "${environmentVariableName} value is : ${!environmentVariableName}"
+        fi
     fi
 done

@@ -47,9 +47,22 @@ You'll have this one:
     MYSQL_USERNAME value is : username
     MYSQL_PASSWORD is empty. Terminating.
     
-TODO
+Optionally you can indicate that you don't want to print out the original value of the env variable. This might be useful if you have a secret in it. Back to the previous example:
 
- - Indicate and mask secret values (passwords)
+    # Database related variables
+    MYSQL_USERNAME
+    MYSQL_PASSWORD|s
+
+The option `s` after a `|` will indicate that you'll see a bunch of `*` in your terminal instead of the original content. The output in this case will be
+
+    MYSQL_USERNAME value is : username
+    MYSQL_PASSWORD value is : ****
+    Hello, world username with pass!
+    
+The third line is inside of the application, that's why the passed value was printed out.
+    
+## TODOs
+
  - Introducing silent mode
 
 # Licensing 

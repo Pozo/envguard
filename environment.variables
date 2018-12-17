@@ -1,4 +1,4 @@
 # Example database related ENV variable names
 
 MYSQL_USERNAME
-MYSQL_PASSWORD
+MYSQL_PASSWORD|s
