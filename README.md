@@ -46,7 +46,9 @@ You'll have this one:
 
     MYSQL_USERNAME value is : username
     MYSQL_PASSWORD is empty. Terminating.
-    
+
+#### Masking secret values
+
 Optionally you can indicate that you don't want to print out the original value of the env variable. This might be useful if you have a secret in it. Back to the previous example:
 
     # Database related variables
@@ -60,10 +62,24 @@ The option `s` after a `|` will indicate that you'll see a bunch of `*` in your 
     Hello, world username with pass!
     
 The third line is inside of the application, that's why the passed value was printed out.
-    
-## TODOs
 
- - Introducing silent mode
+Right now only the `|s` option is allowed after an env variable name.
+    
+#### Silent mode
+
+Optionally you can turn off the env variable printout with the `-s`  or `--silent` options. 
+
+In case of
+
+    export MYSQL_USERNAME=username; \
+    ./envguard.sh -s && \
+    java -jar envguard-1.0-SNAPSHOT.jar
+
+You'll see nothing in your terminal but if you check the last return code
+
+    echo $?
+    
+You'll see that the return code is `1`
 
 # Licensing 
 
