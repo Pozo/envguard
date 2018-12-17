@@ -29,8 +29,8 @@ Okay, let's start an application which must apply these variables and you forgot
 
 Without envguard
 
-    export MYSQL_USERNAME=username; \
-    java -jar envguard-1.0-SNAPSHOT.jar
+    MYSQL_USERNAME=username \
+    java -jar ./build/libs/envguard-1.0-SNAPSHOT.jar
     
 You'll have this output
 
@@ -40,12 +40,14 @@ With envguard
 
     export MYSQL_USERNAME=username; \
     ./envguard.sh && \
-    java -jar envguard-1.0-SNAPSHOT.jar
+    java -jar ./build/libs/envguard-1.0-SNAPSHOT.jar
 
 You'll have this one:
 
     MYSQL_USERNAME value is : username
     MYSQL_PASSWORD is empty. Terminating.
+
+**_Important:_**  As you can see above, we are using export and a semicolon now. This is necessary because of the wedged `envguard.sh` call. So if you have used something similar before, you must export your variables in order to work with envguard.
 
 #### Masking secret values
 
@@ -80,6 +82,10 @@ You'll see nothing in your terminal but if you check the last return code
     echo $?
     
 You'll see that the return code is `1`
+
+#### Building the test application
+
+    ./gradlew clean build
 
 # Licensing 
 
