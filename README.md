@@ -29,7 +29,7 @@ Okay, let's start an application which must apply these variables and you forgot
 
 Without envguard
 
-    MYSQL_USERNAME=username \
+    export MYSQL_USERNAME=username; \
     java -jar envguard-1.0-SNAPSHOT.jar
     
 You'll have this output
@@ -38,8 +38,8 @@ You'll have this output
 
 With envguard
 
-    MYSQL_USERNAME=username \
-    ./envguard.sh \
+    export MYSQL_USERNAME=username; \
+    ./envguard.sh && \
     java -jar envguard-1.0-SNAPSHOT.jar
 
 You'll have this one:
